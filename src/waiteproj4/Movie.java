@@ -158,10 +158,10 @@ public class Movie extends StoreItem
     public String printableString()
     {
         String p = super.printableString()
-                +"\nGenre"+ String.format("%-25s", " ") + genre 
-                +"\nDirector"+ String.format("%-25s", " ") + director 
-                +"\nActor"+ String.format("%-25s", " ") + actor
-                + "\nQuantity" + String.format("%-25s", "     ") + getItemCount();
+                + String.format("%-25s", "\nGenre") + genre 
+                + String.format("%-25s", "\nDirector") + director 
+                + String.format("%-25s", "\nActor") + actor
+                + String.format("%-25s", "\nQuantity") + getItemCount();
         
         return p;
     }

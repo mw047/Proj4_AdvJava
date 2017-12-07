@@ -89,8 +89,8 @@ public class Book extends StoreItem
     public String printableString()
     {
         String p = super.printableString()
-                +"\nGenre"+ String.format("%-25s", " ") + genre 
-                + "\nQuantity" + String.format("%-25s", "     ") + getItemCount();
+                + String.format("%-25s", "\nGenre") + genre 
+                + String.format("%-25s","\nQuantity") + getItemCount();
         
         return p;
     }

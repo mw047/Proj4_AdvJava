@@ -87,10 +87,10 @@ public class Painting extends StoreItem {
     public String printableString()
     {
         String p = super.printableString()
-                +"\nMedia"+ String.format("%-25s", " ") + media 
-                +"\nHeight"+ String.format("%-25s", " ") + height 
-                +"\nWidth"+ String.format("%-25s", " ") + width
-                + "\nQuantity" + String.format("%-25s", "     ") + getItemCount();
+                + String.format("%-25s", "\nMedia") + media 
+                + String.format("%-25s", "\nHeight") + height 
+                +String.format("%-25s", "\nWidth") + width
+                +String.format("%-25s", "\nQuantity") + getItemCount();
         
         return p;
     }

@@ -69,7 +69,7 @@ public class customGUI extends JFrame implements ActionListener{
     JLabel dateRel = new JLabel("Date Released", SwingConstants.RIGHT);
     JLabel pPrice = new JLabel("Purchase Price", SwingConstants.RIGHT);
     JLabel aPrice = new JLabel("Asking Price", SwingConstants.RIGHT);
-    JLabel qty = new JLabel("Quantity", SwingConstants.RIGHT);        
+    //JLabel qty = new JLabel("Quantity", SwingConstants.RIGHT);        
     JLabel director = new JLabel("Director", SwingConstants.RIGHT);
     JLabel actor = new JLabel("Actors", SwingConstants.RIGHT);
     JLabel genre = new JLabel("Genre", SwingConstants.RIGHT);
@@ -85,7 +85,7 @@ public class customGUI extends JFrame implements ActionListener{
     JXDatePicker acq = new JXDatePicker();
     JXDatePicker rel = new JXDatePicker();
     
-    JTextField qtyT = new JTextField("");
+//    JTextField qtyT = new JTextField("");
     JTextField directorT = new JTextField("");
     JTextField actorT = new JTextField("");
     JTextField genreT = new JTextField("");
@@ -126,9 +126,9 @@ public class customGUI extends JFrame implements ActionListener{
         directorT.setPreferredSize(ps);
         directorT.setEnabled(false);
         directorT.setBackground(Color.darkGray);
-        qtyT.setPreferredSize(ps);
-        qtyT.setEnabled(false);
-        qtyT.setBackground(Color.darkGray);
+//        qtyT.setPreferredSize(ps);
+//        qtyT.setEnabled(false);
+//        qtyT.setBackground(Color.darkGray);
         mediaT.setPreferredSize(ps);
         mediaT.setEnabled(false);
         mediaT.setBackground(Color.darkGray);
@@ -184,8 +184,8 @@ public class customGUI extends JFrame implements ActionListener{
         options.add(wideT);
         options.add(high);
         options.add(highT);
-        options.add(qty);
-        options.add(qtyT);
+//        options.add(qty);
+//        options.add(qtyT);
     }
 
     private void setDisplay() {
@@ -267,6 +267,8 @@ public class customGUI extends JFrame implements ActionListener{
         acq.setBackground(Color.white);
         authorT.setEnabled(true);
         authorT.setBackground(Color.white);
+//        qtyT.setEnabled(true);
+//        qtyT.setBackground(Color.white);
     }
     
     private void setFields(){
@@ -277,7 +279,7 @@ public class customGUI extends JFrame implements ActionListener{
         inventory[i].setDateAcquired(rel.getDate());
         inventory[i].setPurchasePrice(Integer.parseInt(pPriceT.getText()));
         inventory[i].setAuthor(authorT.getText());
-        inventory[i].setItemCount(Integer.parseInt(qtyT.getText()));
+//        inventory[i].setItemCount(Integer.parseInt(qtyT.getText()));
         setInvDisplay();
 //        
 //            JTextArea invInfo = new JTextArea();
@@ -291,7 +293,7 @@ public class customGUI extends JFrame implements ActionListener{
         acq.getEditor().setText("");
         aPriceT.setText("");
         pPriceT.setText("");
-        qtyT.setText("");
+//        qtyT.setText("");
         directorT.setText("");
         actorT.setText("");
         genreT.setText("");
@@ -442,8 +444,8 @@ public class customGUI extends JFrame implements ActionListener{
         {for (int count = 0; count < inventory.length-1; count++) {
             //System.out.println(inventory[0].getTitle());
             
-            inventory[numDisplayed].remove(Integer.parseInt(qtyT.getText()));
-            invInfo.setText(inventory[count].printableString());
+//            inventory[numDisplayed].remove(Integer.parseInt(qtyT.getText()));
+//            invInfo.setText(inventory[count].printableString());
                 
             }   
         }
