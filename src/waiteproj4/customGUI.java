@@ -5,8 +5,8 @@
  */
 package waiteproj4;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -24,7 +24,6 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import static javax.swing.SwingConstants.CENTER;
 import org.jdesktop.swingx.JXDatePicker;
 
 
@@ -34,25 +33,29 @@ import org.jdesktop.swingx.JXDatePicker;
  */
 public class customGUI extends JFrame implements ActionListener{
     
-    StoreItem[] inventory = new StoreItem[1];
-    StoreItem x;
-    int i = 0;
-    JButton[] buttonList = new JButton[1]; 
-    int numDisplayed = 0;
-    JLabel invCount = new JLabel("There are " + (inventory.length-1) + " items in inventory.");
+    StoreItem[] inventory = new StoreItem[1];   //count overall inventory items
+    StoreItem x;                          //create inventory item
+    int i = 0;                          //count for StoreItem[]
+ 
+    JButton[] buttonList = new JButton[1];      //buttons to display inventory items
+    //int numDisplayed = 0;
+    JLabel invCount = new JLabel("There are " + StoreItem.getItemCount() + " items in inventory.");     //label to display count
+    JLabel bookCount = new JLabel("There are " + Book.getBookCount() + " books in inventory.");
+    JLabel movieCount = new JLabel("There are " + Movie.getMovieCount() + " movies in inventory.");
+    JLabel paintingCount = new JLabel("There are " + Painting.getPaintingCount() + " paintings in inventory.");
+    
     
 //create panels to hold various fields
-    JPanel common = new JPanel(new GridLayout(6, 2, 5, 5));
-    JPanel options = new JPanel(new GridLayout(8, 2, 5, 5));
-    JPanel display = new JPanel(new GridLayout());
-    JPanel selection = new JPanel();
-    JPanel action = new JPanel();
-    JPanel invList = new JPanel();
+    JPanel common = new JPanel(new GridLayout(12, 2, 5, 5));     //displays input attributes to inventory
+//    JPanel options = new JPanel(new GridLayout(8, 2, 5, 5));    //displays attributes specific to inventory types
+    JPanel display = new JPanel(new GridLayout());              //container for output
+    JPanel selection = new JPanel();                    //holds button array to select/display inventory items
+    JPanel action = new JPanel(new GridLayout(5, 1, 5, 5));               //holds radio buttons and add/remove buttons
+    JPanel invList = new JPanel();              //
     JPanel info = new JPanel();
     
-    JTextArea invInfo = new JTextArea();
-                
-    
+    JTextArea invInfo = new JTextArea();        //displays inventory information for selected inventory item
+               
     //RadioButtons
     JRadioButton movie = new JRadioButton("Edit Movie Inventory");
     JRadioButton book = new JRadioButton("Edit Book Inventory");
@@ -102,43 +105,16 @@ public class customGUI extends JFrame implements ActionListener{
         this.setLayout(new FlowLayout());
         
         titleT.setPreferredSize(ps);
-        titleT.setEnabled(false);
-        titleT.setBackground(Color.darkGray);
         authorT.setPreferredSize(ps);
-        authorT.setEnabled(false);
-        authorT.setBackground(Color.darkGray);
         pPriceT.setPreferredSize(ps);
-        pPriceT.setEnabled(false);
-        pPriceT.setBackground(Color.darkGray);
         aPriceT.setPreferredSize(ps);
-        aPriceT.setEnabled(false);
-        aPriceT.setBackground(Color.darkGray);
         genreT.setPreferredSize(ps);
-        genreT.setEnabled(false);
-        genreT.setBackground(Color.darkGray);
-//        actorT.setInputVerifier(inputVerifier);
         actorT.setPreferredSize(ps);
-        actorT.setEnabled(false);
-        actorT.setBackground(Color.darkGray);
         directorT.setPreferredSize(ps);
-        directorT.setEnabled(false);
-        directorT.setBackground(Color.darkGray);
-//        qtyT.setPreferredSize(ps);
-//        qtyT.setEnabled(false);
-//        qtyT.setBackground(Color.darkGray);
         mediaT.setPreferredSize(ps);
-        mediaT.setEnabled(false);
-        mediaT.setBackground(Color.darkGray);
         highT.setPreferredSize(ps);
-        highT.setEnabled(false);
-        highT.setBackground(Color.darkGray);
         wideT.setPreferredSize(ps);
-        wideT.setEnabled(false);
-        wideT.setBackground(Color.darkGray);
-        acq.setEnabled(false);
-        acq.setBackground(Color.darkGray);
-        rel.setEnabled(false);
-        rel.setBackground(Color.darkGray);
+        disableFields();
         
         setCommon(); //add labels and text fields
         setSelection(); //set Options panel and set Actions Panel and add them both to selection panel
@@ -147,12 +123,11 @@ public class customGUI extends JFrame implements ActionListener{
         this.add(selection);
         this.add(display);
         this.setVisible(true);
-
     }
 
     private void setCommon() {
         
-        common.setSize(new Dimension(350, 200));
+        common.setSize(new Dimension(350, 500));
         common.add(title);
         common.add(titleT);
         common.add(author);
@@ -165,24 +140,18 @@ public class customGUI extends JFrame implements ActionListener{
         common.add(pPriceT);
         common.add(aPrice);
         common.add(aPriceT);
-    }
-    
-    private void setOptions() {
-        options.setSize(350, 200);
-        options.add(actor);
-        options.add(actorT);
-        options.add(director);
-        options.add(directorT);
-        options.add(genre);
-        options.add(genreT);
-        options.add(media);
-        options.add(mediaT);
-        options.add(wide);
-        options.add(wideT);
-        options.add(high);
-        options.add(highT);
-//        options.add(qty);
-//        options.add(qtyT);
+        common.add(actor);
+        common.add(actorT);
+        common.add(director);
+        common.add(directorT);
+        common.add(genre);
+        common.add(genreT);
+        common.add(media);
+        common.add(mediaT);
+        common.add(wide);
+        common.add(wideT);
+        common.add(high);
+        common.add(highT);
     }
 
     private void setDisplay() {
@@ -193,38 +162,39 @@ public class customGUI extends JFrame implements ActionListener{
         invList.setAlignmentX(LEFT_ALIGNMENT);
         info.setPreferredSize(new Dimension(250, 200));
         info.setMinimumSize(new Dimension(250, 200));
-        invList.add(invCount);
+        //invList.add(invCount);
         display.add(invList);
         display.add(info);   
         info.add(invInfo);
     }
 
     private void setSelection() {
-        selection.setSize(400, 300);
+        selection.setPreferredSize(new Dimension(350, 300));
         selection.setLayout(new BoxLayout(selection, BoxLayout.Y_AXIS));
-        setOptions();   //set type specific labels and text fields
+
+//        setOptions();   //set type specific labels and text fields
         setActions();   //set radio buttons and add/remove buttons for actions
-        selection.add(options);
-        selection.add(action);
+//        selection.add(options);
+        selection.add(action, new BorderLayout());
+        updateCounts();
+        
+        selection.add(invCount);
+        selection.add(movieCount);
+        selection.add(bookCount);
+        selection.add(paintingCount);
         
     }
 
     private void setActions() {
-        action.setSize(250, 100);
-        action.setLayout(new BoxLayout(action, BoxLayout.Y_AXIS));
-        action.setAlignmentX(CENTER_ALIGNMENT);
-        add.setAlignmentX(Component.CENTER_ALIGNMENT);
-        remove.setAlignmentX(Component.CENTER_ALIGNMENT);
-                
+        selection.setBackground(Color.lightGray);
+//        action.setBackground(Color.red);
+        action.setSize(new Dimension(350, 50));
+        
         buttonGroup.add(movie);
         buttonGroup.add(book);
         buttonGroup.add(painting);
-        movie.setAlignmentX(Component.CENTER_ALIGNMENT);
-        book.setAlignmentX(Component.CENTER_ALIGNMENT);
-        painting.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        
-        //action.add(Box.createHorizontalStrut(10));
+        //action.add(Box.createVerticalStrut(1));
         action.add(movie);        
         action.add(book);
         action.add(painting);   
@@ -237,25 +207,38 @@ public class customGUI extends JFrame implements ActionListener{
         painting.addActionListener(this);
         add.addActionListener(this);
         remove.addActionListener(this);
-
     }
 
     private void disableFields() {
+        titleT.setEnabled(false);
+        titleT.setBackground(Color.lightGray);
+        authorT.setEnabled(false);
+        authorT.setBackground(Color.lightGray);
+        acq.setEnabled(false);
+        acq.setBackground(Color.lightGray);
+        rel.setEnabled(false);
+        rel.setBackground(Color.lightGray);
+        pPriceT.setEnabled(false);
+        pPriceT.setBackground(Color.lightGray);
+        aPriceT.setEnabled(false);
+        aPriceT.setBackground(Color.lightGray);
         genreT.setEnabled(false);
-        genreT.setBackground(Color.darkGray);
+        genreT.setBackground(Color.lightGray);
         directorT.setEnabled(false);
-        directorT.setBackground(Color.darkGray);
+        directorT.setBackground(Color.lightGray);
         actorT.setEnabled(false);
-        actorT.setBackground(Color.darkGray);
+        actorT.setBackground(Color.lightGray);
         mediaT.setEnabled(false);
-        mediaT.setBackground(Color.darkGray);
+        mediaT.setBackground(Color.lightGray);
         highT.setEnabled(false);
-        highT.setBackground(Color.darkGray);
+        highT.setBackground(Color.lightGray);
         wideT.setEnabled(false);
-        wideT.setBackground(Color.darkGray);
+        wideT.setBackground(Color.lightGray);
     }
 
     private void activateFields() {
+        add.setEnabled(true);
+        remove.setEnabled(true);
         rel.setEnabled(true);
         rel.setBackground(Color.white);
         aPriceT.setEnabled(true);
@@ -277,34 +260,16 @@ public class customGUI extends JFrame implements ActionListener{
         inventory[i].setAskingPrice(Integer.parseInt(aPriceT.getText()));
         inventory[i].setTitle(titleT.getText());
         inventory[i].setDateAcquired(acq.getDate());
-        inventory[i].setDateAcquired(rel.getDate());
+        inventory[i].setDateReleased(rel.getDate());
         inventory[i].setPurchasePrice(Integer.parseInt(pPriceT.getText()));
         inventory[i].setAuthor(authorT.getText());
 //        inventory[i].setItemCount(Integer.parseInt(qtyT.getText()));
         setInvDisplay();
-//        
-//            JTextArea invInfo = new JTextArea();
-//            invInfo.setText(inventory[i].printableString());
-//            info.add(invInfo);
-        i++;
-       
-        titleT.setText("");
-        authorT.setText("");
-        rel.getEditor().setText("");
-        acq.getEditor().setText("");
-        aPriceT.setText("");
-        pPriceT.setText("");
-//        qtyT.setText("");
-        directorT.setText("");
-        actorT.setText("");
-        genreT.setText("");
-        highT.setText("");
-        wideT.setText("");
-        mediaT.setText("");
-   
+        clearFields();
     }
 
     private void setInvDisplay() {
+        
         JButton item = new JButton();
         item.setEnabled(true);
         item.addActionListener(this);
@@ -312,9 +277,8 @@ public class customGUI extends JFrame implements ActionListener{
         StoreItem[] temp = new StoreItem[inventory.length];
         JButton[] temp1 = new JButton[buttonList.length];
 //        labelList = new JLabel[inventory.length];
-        invList.add(item);
         buttonList[i] = item;
-        
+        invList.add(buttonList[i]);
         
         //set temp items
         for(int count=0; count < temp.length; count++)
@@ -331,8 +295,77 @@ public class customGUI extends JFrame implements ActionListener{
         System.arraycopy(temp, 0, inventory, 0, inventory.length-1);
         System.arraycopy(temp1, 0, buttonList, 0, buttonList.length-1);
         
+        i++;
     }
     
+    private void setInfo(String text){
+        //search for StoreItem
+        for (int count = 0; count < inventory.length-1; count++) {
+            
+            if(inventory[count].getTitle().equalsIgnoreCase(text)) {    //if found
+                invInfo.setText(inventory[count].printableString());    //display printableString
+                
+                if(inventory[count].getClass().getName().equalsIgnoreCase("waiteproj4.Book")){
+                    book.setSelected(true);
+                    titleT.setText(inventory[count].getTitle());
+                    authorT.setText(inventory[count].getAuthor());
+                    genreT.setText(((Book)inventory[count]).getGenre());
+                    acq.setDate(inventory[count].getDateAcquired());
+                    rel.setDate(inventory[count].getDateReleased());
+                    pPriceT.setText(Integer.toString(inventory[count].getPurchasePrice()));
+                    aPriceT.setText(Integer.toString(inventory[count].getAskingPrice()));
+                }   
+                else if(inventory[count].getClass().getName().equalsIgnoreCase("waiteproj4.Movie")){
+                    movie.setSelected(true);
+                    titleT.setText(inventory[count].getTitle());
+                    authorT.setText(inventory[count].getAuthor());
+                    actorT.setText(((Movie)inventory[count]).getActor());
+                    directorT.setText(((Movie)inventory[count]).getDirector());
+                    genreT.setText(((Movie)inventory[count]).getGenre());
+                    acq.setDate(inventory[count].getDateAcquired());
+                    rel.setDate(inventory[count].getDateReleased());
+                    pPriceT.setText(Integer.toString(inventory[count].getPurchasePrice()));
+                    aPriceT.setText(Integer.toString(inventory[count].getAskingPrice()));
+                }
+                else if(inventory[count].getClass().getName().equalsIgnoreCase("waiteproj4.Painting")){
+                    painting.setSelected(true);
+                    titleT.setText(inventory[count].getTitle());
+                    authorT.setText(inventory[count].getAuthor());
+                    acq.setDate(inventory[count].getDateAcquired());
+                    rel.setDate(inventory[count].getDateReleased());
+                    pPriceT.setText(Integer.toString(inventory[count].getPurchasePrice()));
+                    aPriceT.setText(Integer.toString(inventory[count].getAskingPrice()));
+                    mediaT.setText(((Painting)inventory[count]).getMedia());
+                    wideT.setText(Integer.toString(((Painting)inventory[count]).getWidth()));
+                    highT.setText(Integer.toString(((Painting)inventory[count]).getHeight()));
+                }
+            }
+        }
+      
+    }
+    
+    private void updateCounts() {
+        invCount.setText("There are " + StoreItem.getItemCount() + " TOTAL items in inventory.");     //label to display count
+        bookCount.setText("There are " + Book.getBookCount() + " BOOKS in inventory.");             //display book count
+        movieCount.setText("There are " + Movie.getMovieCount() + " MOVIES in inventory.");         //display movie count
+        paintingCount.setText("There are " + Painting.getPaintingCount() + " PAINTINGS in inventory.");     //display painting count
+    }
+
+    private void clearFields() {
+        titleT.setText("");
+        authorT.setText("");
+        rel.getEditor().setText("");
+        acq.getEditor().setText("");
+        aPriceT.setText("");
+        pPriceT.setText("");
+//        qtyT.setText("");
+        directorT.setText("");
+        actorT.setText("");
+        genreT.setText("");
+        highT.setText("");
+        wideT.setText("");
+        mediaT.setText("");
+    }
     @Override
     public void actionPerformed(ActionEvent ae) {
         
@@ -340,6 +373,8 @@ public class customGUI extends JFrame implements ActionListener{
         {
             disableFields();
             activateFields();
+            clearFields();
+            invInfo.setText("");
             genreT.setEnabled(true);
             genreT.setBackground(Color.white);
             actorT.setEnabled(true);
@@ -352,6 +387,8 @@ public class customGUI extends JFrame implements ActionListener{
         {
             disableFields();
             activateFields();
+            clearFields();
+            invInfo.setText("");
             genreT.setEnabled(true);
             genreT.setBackground(Color.white);
         }               
@@ -360,6 +397,8 @@ public class customGUI extends JFrame implements ActionListener{
         {
             disableFields();
             activateFields();
+            clearFields();
+            invInfo.setText("");
             mediaT.setEnabled(true);
             mediaT.setBackground(Color.white);
             highT.setEnabled(true);
@@ -416,16 +455,19 @@ public class customGUI extends JFrame implements ActionListener{
                     ((Movie)x).setGenre(genreT.getText());     
                     ((Movie)x).setDirector(directorT.getText());
                     ((Movie)x).setActor(actorT.getText());
+                    Movie.increaseMovieCount();
                 }
                 else if(book.isSelected()){
                     x = new Book();
                     ((Book)x).setGenre(genreT.getText());
+                    Book.increaseBookCount();
                 }
                 else if(painting.isSelected()){
                     x = new Painting();
                     ((Painting)x).setHeight(Integer.parseInt(highT.getText()));
                     ((Painting)x).setWidth(Integer.parseInt(wideT.getText()));
                     ((Painting)x).setMedia(mediaT.getText());
+                    Painting.increasePaintingCount();
                 }
                 else
                 throw new Exception();
@@ -433,19 +475,57 @@ public class customGUI extends JFrame implements ActionListener{
             catch(Exception ex){
                 errorMessage.setText("ERROR: No category selected!");
             }
-            System.out.println(x.printableString());
             
-     
+            updateCounts();
             inventory[i]=x;
             setFields();
 
         }
         
-        if(ae.getSource().equals(remove))
-        {for (int count = 0; count < inventory.length-1; count++) {
-
+        if(ae.getSource().equals(remove)){
+        for (int count = 0; count < inventory.length-1; count++) {     //find inventory item location in array
+                        
+            if(inventory[count].getTitle().equalsIgnoreCase(titleT.getText())){     //when found
+                if(inventory[count].getClass().getName().equalsIgnoreCase("waiteproj4.Book"))
+                    Book.decreaseBookCount();
+                else if(inventory[count].getClass().getName().equalsIgnoreCase("waiteproj4.Movie"))
+                    Movie.decreaseMovieCount();
+                else if(inventory[count].getClass().getName().equalsIgnoreCase("waiteproj4.Painting"))
+                    Painting.decreasePaintingCount();
                 
-            }   
+                invList.remove(buttonList[count]);
+                invList.revalidate();
+                invList.repaint();
+
+                    //create temp storeItem array
+                StoreItem[] temp = new StoreItem[inventory.length-1];          
+                    //create temp button array
+                JButton[] temp1 = new JButton[buttonList.length-1];
+                    //copy inventory and buttonList to temp arrays
+                for(int c = 0; c<count; c++){
+                    temp1[c] = buttonList[c];
+                    temp[c] = inventory[c];
+                }
+                    //remove selected inventory and corresponding button and shift inventory items accordingly
+                for(int pivot = count; pivot < temp.length-1; pivot++){
+                    temp[pivot]=inventory[pivot+1];
+                    temp1[pivot]=buttonList[pivot+1];
+                }
+                    //removeButton(buttonList[count].getText());
+                buttonList = new JButton[temp1.length];
+                inventory = new StoreItem[temp.length];
+                System.arraycopy(temp, 0, inventory, 0, inventory.length);
+                System.arraycopy(temp1, 0, buttonList, 0, buttonList.length);
+
+                i--; 
+                
+                updateCounts();
+                break;
+                }
+            }
+            invInfo.setText("");
+            remove.setEnabled(false);
+            clearFields();
         }
         
         //specific inventory item has been selected to be displayed
@@ -454,23 +534,11 @@ public class customGUI extends JFrame implements ActionListener{
             if(ae.getSource().equals(buttonList[count]))
             {
                 setInfo(buttonList[count].getText());
+                add.setEnabled(false);
+                remove.setEnabled(true);
+                disableFields();
             }
     }
+}   
+  
 }
-
-    private void setInfo(String text) {
-        for (int count = 0; count < inventory.length-1; count++) {
-            //System.out.println(inventory[0].getTitle());
-            
-            if(inventory[count].getTitle().equalsIgnoreCase(text)) {
-                numDisplayed = count;
-                //System.out.println("FOUND");
-                invInfo.setText(inventory[count].printableString());
-                
-                //******FIX THIS********
-                if(inventory[count].getClass().getName().equalsIgnoreCase("Book"))
-                    book.setSelected(true);                
-            }
-        }
-      
-    }}
