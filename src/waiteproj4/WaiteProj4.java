@@ -21,7 +21,7 @@ public class WaiteProj4 {
         
         customGUI myGUI = new customGUI();
         myGUI.setDefaultCloseOperation(3);
-        myGUI.setSize(450, 1000);
+        myGUI.setSize(600, 1000);
         myGUI.setVisible(true);
 //        CardLayoutFrame cardLayoutFrame = new CardLayoutFrame();
 //        cardLayoutFrame.setDefaultCloseOperation(3);        //EXIT_ON_CLOSE is constant for 3

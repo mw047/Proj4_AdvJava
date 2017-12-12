@@ -115,11 +115,11 @@ public class StoreItem {
      **************************************************/
     protected String printableString()
     {
-        String p = String.format("%-25s", "Title") + title 
-            + String.format("%-25s", "\nAuthor" ) + author 
-            + String.format("%-25s", "\nDate Acquired" ) + dateAcquired 
-             + String.format("%-25s", "\nPurchase Price") + purchasePrice  
-            + String.format("%-25s", "\nAsking Price ") + askingPrice;
+        String p = String.format("Title..........................") + title 
+               + String.format("\nAuthor......................" ) + author 
+               + String.format("\nDate Acquired........" ) + dateAcquired 
+               + String.format("\nPurchase Price......") + purchasePrice  
+               + String.format("\nAsking Price............") + askingPrice;
 
         return p;
     }

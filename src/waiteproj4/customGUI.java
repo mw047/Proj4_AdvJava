@@ -5,18 +5,15 @@
  */
 package waiteproj4;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.Instant;
 import java.util.Date;
-import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -42,15 +39,16 @@ public class customGUI extends JFrame implements ActionListener{
     int i = 0;
     JButton[] buttonList = new JButton[1]; 
     int numDisplayed = 0;
-    //Create cards for cardPanel
-   
+    JLabel invCount = new JLabel("There are " + (inventory.length-1) + " items in inventory.");
+    
+//create panels to hold various fields
     JPanel common = new JPanel(new GridLayout(6, 2, 5, 5));
     JPanel options = new JPanel(new GridLayout(8, 2, 5, 5));
     JPanel display = new JPanel(new GridLayout());
     JPanel selection = new JPanel();
     JPanel action = new JPanel();
     JPanel invList = new JPanel();
-    JPanel info = new JPanel(new GridLayout());
+    JPanel info = new JPanel();
     
     JTextArea invInfo = new JTextArea();
                 
@@ -76,8 +74,7 @@ public class customGUI extends JFrame implements ActionListener{
     JLabel high = new JLabel("Height", SwingConstants.RIGHT);
     JLabel wide = new JLabel("Width", SwingConstants.RIGHT);
     JLabel media = new JLabel("Media", SwingConstants.RIGHT);
-
-
+    
     JTextField highT = new JTextField("");
     JTextField wideT = new JTextField("");
     JTextField mediaT = new JTextField("");
@@ -189,12 +186,14 @@ public class customGUI extends JFrame implements ActionListener{
     }
 
     private void setDisplay() {
-        display.setPreferredSize(new Dimension(400, 200));
-        display.setMinimumSize(new Dimension(400, 200));
-        
-        invList.setPreferredSize(new Dimension(200, 200));
-        invList.setMinimumSize(new Dimension(200, 200));
+        display.setPreferredSize(new Dimension(550, 200));
+        display.setMinimumSize(new Dimension(550, 200));
+        invList.setPreferredSize(new Dimension(300, 200));
+        invList.setMinimumSize(new Dimension(300, 200));
         invList.setAlignmentX(LEFT_ALIGNMENT);
+        info.setPreferredSize(new Dimension(250, 200));
+        info.setMinimumSize(new Dimension(250, 200));
+        invList.add(invCount);
         display.add(invList);
         display.add(info);   
         info.add(invInfo);
@@ -212,20 +211,23 @@ public class customGUI extends JFrame implements ActionListener{
 
     private void setActions() {
         action.setSize(250, 100);
-        action.setLayout(new BoxLayout(action, BoxLayout.PAGE_AXIS));
-        action.setAlignmentX(Component.CENTER_ALIGNMENT);
-        add.setAlignmentX(CENTER);
-        remove.setAlignmentX(CENTER);
+        action.setLayout(new BoxLayout(action, BoxLayout.Y_AXIS));
+        action.setAlignmentX(CENTER_ALIGNMENT);
+        add.setAlignmentX(Component.CENTER_ALIGNMENT);
+        remove.setAlignmentX(Component.CENTER_ALIGNMENT);
                 
         buttonGroup.add(movie);
         buttonGroup.add(book);
         buttonGroup.add(painting);
+        movie.setAlignmentX(Component.CENTER_ALIGNMENT);
+        book.setAlignmentX(Component.CENTER_ALIGNMENT);
+        painting.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        
         //action.add(Box.createHorizontalStrut(10));
         action.add(movie);        
         action.add(book);
         action.add(painting);   
-        
         action.add(add);
         action.add(remove);
         
@@ -233,7 +235,6 @@ public class customGUI extends JFrame implements ActionListener{
         movie.addActionListener(this);
         book.addActionListener(this);
         painting.addActionListener(this);
-        
         add.addActionListener(this);
         remove.addActionListener(this);
 
@@ -442,14 +443,12 @@ public class customGUI extends JFrame implements ActionListener{
         
         if(ae.getSource().equals(remove))
         {for (int count = 0; count < inventory.length-1; count++) {
-            //System.out.println(inventory[0].getTitle());
-            
-//            inventory[numDisplayed].remove(Integer.parseInt(qtyT.getText()));
-//            invInfo.setText(inventory[count].printableString());
+
                 
             }   
         }
         
+        //specific inventory item has been selected to be displayed
         for(int count = 0; count < buttonList.length; count++)
         {
             if(ae.getSource().equals(buttonList[count]))
@@ -468,6 +467,9 @@ public class customGUI extends JFrame implements ActionListener{
                 //System.out.println("FOUND");
                 invInfo.setText(inventory[count].printableString());
                 
+                //******FIX THIS********
+                if(inventory[count].getClass().getName().equalsIgnoreCase("Book"))
+                    book.setSelected(true);                
             }
         }
       
